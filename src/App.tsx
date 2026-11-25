@@ -47,25 +47,26 @@ export default function App() {
       if (hash.startsWith("#/room/")) {
         setSelectedSlug(hash.replace("#/room/", ""));
         setActiveView("room-category");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo(0, 0);
       } else if (hash.startsWith("#/style/")) {
         setSelectedSlug(hash.replace("#/style/", ""));
         setActiveView("style-category");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo(0, 0);
       } else if (hash.startsWith("#/material-cat/")) {
         setSelectedSlug(hash.replace("#/material-cat/", ""));
         setActiveView("material-category");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo(0, 0);
       } else if (hash.startsWith("#/wall/")) {
         setSelectedSlug(hash.replace("#/wall/", ""));
         setActiveView("wall-detail");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo(0, 0);
       } else if (hash.startsWith("#/material/")) {
         setSelectedSlug(hash.replace("#/material/", ""));
         setActiveView("material-detail");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo(0, 0);
       } else if (!hash || hash === "#") {
         setActiveView("home");
+        window.scrollTo(0, 0);
       }
     };
 
@@ -74,46 +75,53 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
-  // Navigation handlers
+  // Immediately jump to top with zero effects whenever view or slug changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [activeView, selectedSlug]);
+
+  // Navigation handlers - immediate top jump with no effects
   const handleNavigateHome = () => {
     setActiveView("home");
     window.location.hash = "";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   };
 
   const handleSelectRoom = (slug: string) => {
     setSelectedSlug(slug);
     setActiveView("room-category");
     window.location.hash = `#/room/${slug}`;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   };
 
   const handleSelectStyle = (slug: string) => {
     setSelectedSlug(slug);
     setActiveView("style-category");
     window.location.hash = `#/style/${slug}`;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   };
 
   const handleSelectMaterialCategory = (slug: string) => {
     setSelectedSlug(slug);
     setActiveView("material-category");
     window.location.hash = `#/material-cat/${slug}`;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   };
 
   const handleSelectDesign = (slug: string) => {
     setSelectedSlug(slug);
     setActiveView("wall-detail");
     window.location.hash = `#/wall/${slug}`;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   };
 
   const handleSelectMaterialProduct = (slug: string) => {
     setSelectedSlug(slug);
     setActiveView("material-detail");
     window.location.hash = `#/material/${slug}`;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   };
 
   const handleOpenConsultation = (service = "In-Home Wall Assessment") => {
@@ -122,7 +130,7 @@ export default function App() {
   };
 
   const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   };
 
   return (

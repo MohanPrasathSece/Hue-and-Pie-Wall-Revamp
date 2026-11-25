@@ -1,20 +1,33 @@
 import { useState, useEffect } from "react";
-import { ArrowUp, Phone, MessageCircle } from "lucide-react";
+import { ArrowUp, MessageCircle } from "lucide-react";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { RoomBrowser } from "./components/RoomBrowser";
+import { StyleBrowser } from "./components/StyleBrowser";
 import { DesignCatalog } from "./components/DesignCatalog";
 import { MaterialShowroom } from "./components/MaterialShowroom";
 import { ProcessSection } from "./components/ProcessSection";
 import { CostCalculator } from "./components/CostCalculator";
 import { BeforeAfterSection } from "./components/BeforeAfterSection";
+import { RoomCategoryPage } from "./components/RoomCategoryPage";
+import { StyleCategoryPage } from "./components/StyleCategoryPage";
+import { MaterialCategoryPage } from "./components/MaterialCategoryPage";
 import { WallDetailPage } from "./components/WallDetailPage";
+import { MaterialDetailPage } from "./components/MaterialDetailPage";
 import { ConsultationModal } from "./components/ConsultationModal";
 import { Footer } from "./components/Footer";
 
+type AppView =
+  | "home"
+  | "room-category"
+  | "style-category"
+  | "material-category"
+  | "wall-detail"
+  | "material-detail";
+
 export default function App() {
-  const [activeView, setActiveView] = useState<"home" | "detail">("home");
-  const [selectedSlug, setSelectedSlug] = useState<string>("cloud-wood");
+  const [activeView, setActiveView] = useState<AppView>("home");
+  const [selectedSlug, setSelectedSlug] = useState<string>("living-room");
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [consultationService, setConsultationService] = useState("In-Home Wall Assessment");
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -27,19 +40,29 @@ export default function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Listen to hash changes for deep linking
+  // Hash-based deep link router
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash;
-      if (hash.startsWith("#/wall/")) {
-        const slug = hash.replace("#/wall/", "");
-        setSelectedSlug(slug);
-        setActiveView("detail");
+      if (hash.startsWith("#/room/")) {
+        setSelectedSlug(hash.replace("#/room/", ""));
+        setActiveView("room-category");
         window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (hash.startsWith("#/room/")) {
-        const slug = hash.replace("#/room/", "");
-        setSelectedSlug(slug);
-        setActiveView("detail");
+      } else if (hash.startsWith("#/style/")) {
+        setSelectedSlug(hash.replace("#/style/", ""));
+        setActiveView("style-category");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (hash.startsWith("#/material-cat/")) {
+        setSelectedSlug(hash.replace("#/material-cat/", ""));
+        setActiveView("material-category");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (hash.startsWith("#/wall/")) {
+        setSelectedSlug(hash.replace("#/wall/", ""));
+        setActiveView("wall-detail");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (hash.startsWith("#/material/")) {
+        setSelectedSlug(hash.replace("#/material/", ""));
+        setActiveView("material-detail");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (!hash || hash === "#") {
         setActiveView("home");
@@ -51,16 +74,45 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
-  const handleSelectSlug = (slug: string) => {
+  // Navigation handlers
+  const handleNavigateHome = () => {
+    setActiveView("home");
+    window.location.hash = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSelectRoom = (slug: string) => {
     setSelectedSlug(slug);
-    setActiveView("detail");
+    setActiveView("room-category");
+    window.location.hash = `#/room/${slug}`;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSelectStyle = (slug: string) => {
+    setSelectedSlug(slug);
+    setActiveView("style-category");
+    window.location.hash = `#/style/${slug}`;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSelectMaterialCategory = (slug: string) => {
+    setSelectedSlug(slug);
+    setActiveView("material-category");
+    window.location.hash = `#/material-cat/${slug}`;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSelectDesign = (slug: string) => {
+    setSelectedSlug(slug);
+    setActiveView("wall-detail");
     window.location.hash = `#/wall/${slug}`;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleNavigateHome = () => {
-    setActiveView("home");
-    window.location.hash = "";
+  const handleSelectMaterialProduct = (slug: string) => {
+    setSelectedSlug(slug);
+    setActiveView("material-detail");
+    window.location.hash = `#/material/${slug}`;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -75,7 +127,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#2C2523] flex flex-col font-sans">
-      {/* Universal Header */}
+      {/* Universal Header with Brand Logo & Light Plum Accents */}
       <Header
         activeView={activeView}
         onNavigateHome={handleNavigateHome}
@@ -84,31 +136,40 @@ export default function App() {
 
       {/* Main View Router */}
       <main className="flex-1">
-        {activeView === "home" ? (
+        {activeView === "home" && (
           <>
+            {/* Minimal, Luxury Architectural Hero */}
             <Hero
               onOpenConsultation={handleOpenConsultation}
               onExploreDesigns={() => {
                 const el = document.getElementById("designs");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
-              onViewWallDetail={handleSelectSlug}
+              onViewWallDetail={handleSelectDesign}
             />
 
-            <RoomBrowser onSelectRoom={handleSelectSlug} />
+            {/* 1. Explore by Room: 6 Cards with Large Image & Room Name ONLY */}
+            <RoomBrowser onSelectRoom={handleSelectRoom} />
 
-            <DesignCatalog onSelectDesign={handleSelectSlug} />
+            {/* 2. Explore by Style: 8 Cards with Representative Image & Style Name ONLY */}
+            <StyleBrowser onSelectStyle={handleSelectStyle} />
 
-            <MaterialShowroom onOpenConsultation={handleOpenConsultation} />
+            {/* 3. Popular Wall Designs: Photo, Name, and View Design Link */}
+            <DesignCatalog onSelectDesign={handleSelectDesign} />
 
-            {/* Straight Down Vertical Stack on Mobile as specifically requested */}
+            {/* 4. Explore Materials: 6 Texture Cards with Name ONLY */}
+            <MaterialShowroom onSelectCategory={handleSelectMaterialCategory} />
+
+            {/* 5. Dustless 3-Day Process: Straight vertical stack on mobile */}
             <ProcessSection />
 
-            <CostCalculator onOpenConsultation={handleOpenConsultation} />
-
+            {/* 6. Interactive Before & After Slider */}
             <BeforeAfterSection />
 
-            {/* In-Home Assessment Big Banner */}
+            {/* 7. Turnkey Wall Cost Calculator */}
+            <CostCalculator onOpenConsultation={handleOpenConsultation} />
+
+            {/* Free In-Home Assessment Big Banner */}
             <section className="py-20 sm:py-28 bg-[#FAF8F5]">
               <div className="max-w-4xl mx-auto px-4 sm:px-6">
                 <div className="rounded-[32px] p-8 sm:p-14 bg-[#F4EFEA] border border-[#E8DFD2] text-center shadow-lg">
@@ -117,7 +178,7 @@ export default function App() {
                   </h2>
                   <p className="text-base text-[#655B54] max-w-xl mx-auto mb-8 leading-relaxed">
                     Our spatial designer visits with physical wood swatches, laser measurement tools, and 3D catalog.
-                    Available across Bangalore, Mumbai, Hyderabad, Delhi & Pune.
+                    Zero sawdust in your home with 1–3 day clean installation.
                   </p>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -143,11 +204,60 @@ export default function App() {
               </div>
             </section>
           </>
-        ) : (
+        )}
+
+        {/* Dedicated Room Category Page */}
+        {activeView === "room-category" && (
+          <RoomCategoryPage
+            roomSlug={selectedSlug}
+            onNavigateHome={handleNavigateHome}
+            onSelectDesign={handleSelectDesign}
+            onSelectMaterial={handleSelectMaterialProduct}
+            onOpenConsultation={handleOpenConsultation}
+          />
+        )}
+
+        {/* Dedicated Style Category Page */}
+        {activeView === "style-category" && (
+          <StyleCategoryPage
+            styleSlug={selectedSlug}
+            onNavigateHome={handleNavigateHome}
+            onSelectDesign={handleSelectDesign}
+            onOpenConsultation={handleOpenConsultation}
+          />
+        )}
+
+        {/* Dedicated Material Category Page */}
+        {activeView === "material-category" && (
+          <MaterialCategoryPage
+            categorySlug={selectedSlug}
+            onNavigateHome={handleNavigateHome}
+            onSelectProduct={handleSelectMaterialProduct}
+            onSelectDesign={handleSelectDesign}
+            onOpenConsultation={handleOpenConsultation}
+          />
+        )}
+
+        {/* Dedicated Individual Wall Design Page */}
+        {activeView === "wall-detail" && (
           <WallDetailPage
-            slug={selectedSlug}
-            onBack={handleNavigateHome}
-            onSelectSlug={handleSelectSlug}
+            designSlug={selectedSlug}
+            onNavigateHome={handleNavigateHome}
+            onSelectDesign={handleSelectDesign}
+            onSelectRoom={handleSelectRoom}
+            onSelectStyle={handleSelectStyle}
+            onSelectMaterial={handleSelectMaterialProduct}
+            onOpenConsultation={handleOpenConsultation}
+          />
+        )}
+
+        {/* Dedicated Individual Material Detail Page */}
+        {activeView === "material-detail" && (
+          <MaterialDetailPage
+            materialSlug={selectedSlug}
+            onNavigateHome={handleNavigateHome}
+            onSelectDesign={handleSelectDesign}
+            onSelectCategory={handleSelectMaterialCategory}
             onOpenConsultation={handleOpenConsultation}
           />
         )}
@@ -156,11 +266,11 @@ export default function App() {
       {/* Universal Footer */}
       <Footer
         onOpenConsultation={handleOpenConsultation}
-        onSelectRoom={handleSelectSlug}
+        onSelectRoom={handleSelectRoom}
         onNavigateHome={handleNavigateHome}
       />
 
-      {/* Consultation Modal */}
+      {/* Consultation & Booking Modal */}
       <ConsultationModal
         isOpen={consultationOpen}
         onClose={() => setConsultationOpen(false)}
@@ -173,7 +283,7 @@ export default function App() {
           type="button"
           onClick={handleScrollToTop}
           aria-label="Scroll back to top"
-          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#2C2523] text-white shadow-xl flex items-center justify-center hover:bg-[#C59B4E] transition-all cursor-pointer border border-[#E8DFD2]"
+          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#2C2523] text-white shadow-xl flex items-center justify-center hover:bg-[#664465] transition-all cursor-pointer border border-[#E8DFD2]"
         >
           <ArrowUp size={18} />
         </button>

@@ -70,7 +70,14 @@ export function Header({ onOpenConsultation, activeView, onNavigateHome }: Heade
               onClick={() => handleNavClick("rooms")}
               className="text-sm font-medium text-[#2C2523] hover:text-[#664465] transition-colors cursor-pointer py-1"
             >
-              Browse by Room
+              Rooms
+            </button>
+            <button
+              type="button"
+              onClick={() => handleNavClick("styles")}
+              className="text-sm font-medium text-[#2C2523] hover:text-[#664465] transition-colors cursor-pointer py-1"
+            >
+              Styles
             </button>
             <button
               type="button"
@@ -84,7 +91,7 @@ export function Header({ onOpenConsultation, activeView, onNavigateHome }: Heade
               onClick={() => handleNavClick("materials")}
               className="text-sm font-medium text-[#2C2523] hover:text-[#664465] transition-colors cursor-pointer py-1"
             >
-              Tactile Materials
+              Materials
             </button>
             <button
               type="button"
@@ -162,8 +169,9 @@ export function Header({ onOpenConsultation, activeView, onNavigateHome }: Heade
 
           <nav className="flex flex-col gap-5 py-8 flex-1">
             {[
-              { label: "Browse by Room", id: "rooms" },
-              { label: "Wall Designs Catalog", id: "designs" },
+              { label: "Explore by Room", id: "rooms" },
+              { label: "Explore by Style", id: "styles" },
+              { label: "Popular Wall Designs", id: "designs" },
               { label: "Tactile Materials", id: "materials" },
               { label: "Dustless 3-Day Process", id: "process" },
               { label: "Instant Price Calculator", id: "calculator" },

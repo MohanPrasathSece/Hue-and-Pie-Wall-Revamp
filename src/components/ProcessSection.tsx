@@ -1,4 +1,4 @@
-import { process } from "@/lib/wall-data";
+import { processSteps } from "@/lib/wall-data";
 
 export function ProcessSection() {
   return (
@@ -18,7 +18,7 @@ export function ProcessSection() {
 
         {/* Process Steps - Straight Down Vertical Stack on Mobile (grid-cols-1) & 4-Col Grid on Desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          {process.map((p) => (
+          {processSteps.map((p) => (
             <div
               key={p.step}
               className="w-full rounded-[24px] p-7 sm:p-8 bg-white border border-[#E8DFD2] hover:border-[#664465] hover:bg-[#FAF6FA]/70 shadow-2xs hover:shadow-lg transition-all flex flex-col justify-between"

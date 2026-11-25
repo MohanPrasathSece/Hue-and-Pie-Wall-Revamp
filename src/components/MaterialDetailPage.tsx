@@ -8,6 +8,8 @@ import {
   Phone,
   MessageCircle,
   CheckCircle2,
+  ChevronRight,
+  Home,
 } from "lucide-react";
 import { findMaterialProduct, materialProducts, designs } from "@/lib/wall-data";
 
@@ -40,25 +42,47 @@ export function MaterialDetailPage({
 
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
-      {/* Breadcrumb Navigation Bar */}
-      <div className="bg-white border-b border-[#E8E2D9]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-          <button
-            onClick={onNavigateHome}
-            className="inline-flex items-center gap-2 text-sm text-[#6B5E59] hover:text-[#664465] transition-colors font-medium"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Materials
-          </button>
-          <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#A3928B]">
-            <span
+      {/* Breadcrumb Navigation Bar with Explicit Clickable Buttons */}
+      <div className="bg-white border-b border-[#E8E2D9] sticky top-16 z-30 shadow-2xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+          {/* Left: Quick Back Button */}
+          <div className="flex items-center gap-2">
+            <button
               onClick={() => onSelectCategory(material.categorySlug)}
-              className="hover:text-[#664465] cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] hover:bg-[#664465] hover:border-[#664465] hover:text-white transition-all text-xs font-semibold text-[#2C2523] cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to {material.category}</span>
+            </button>
+
+            <button
+              onClick={onNavigateHome}
+              className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-transparent hover:border-[#E8E2D9] hover:bg-[#FAF8F5] text-xs text-[#6B5E59] font-medium transition-colors cursor-pointer"
+            >
+              <Home className="w-3.5 h-3.5" />
+              <span>Home</span>
+            </button>
+          </div>
+
+          {/* Right: Path Navigation Buttons */}
+          <div className="flex items-center gap-1.5 text-xs text-[#8A7973]">
+            <button
+              onClick={onNavigateHome}
+              className="px-2.5 py-1 rounded-md hover:bg-[#EFE6EE] hover:text-[#664465] font-semibold transition-colors cursor-pointer"
+            >
+              Materials
+            </button>
+            <ChevronRight className="w-3 h-3 text-[#B8ACA4]" />
+            <button
+              onClick={() => onSelectCategory(material.categorySlug)}
+              className="px-2.5 py-1 rounded-md hover:bg-[#EFE6EE] hover:text-[#664465] font-semibold transition-colors cursor-pointer"
             >
               {material.category}
+            </button>
+            <ChevronRight className="w-3 h-3 text-[#B8ACA4]" />
+            <span className="px-2.5 py-1 rounded-md bg-[#EFE6EE] text-[#664465] font-bold">
+              {material.code}
             </span>
-            <span>•</span>
-            <span className="font-mono text-[#2C2523]">{material.code}</span>
           </div>
         </div>
       </div>

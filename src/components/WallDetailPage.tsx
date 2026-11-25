@@ -10,8 +10,10 @@ import {
   Layers,
   Phone,
   MessageCircle,
+  ChevronRight,
+  Home,
 } from "lucide-react";
-import { findDesign, designs, type WallDesign } from "@/lib/wall-data";
+import { findDesign, findMaterialProduct, designs, type WallDesign } from "@/lib/wall-data";
 
 interface WallDetailPageProps {
   designSlug: string;
@@ -70,29 +72,46 @@ export function WallDetailPage({
 
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
-      {/* Breadcrumb Navigation Bar */}
-      <div className="bg-white border-b border-[#E8E2D9]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-          <button
-            onClick={onNavigateHome}
-            className="inline-flex items-center gap-2 text-sm text-[#6B5E59] hover:text-[#664465] transition-colors font-medium"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Catalog
-          </button>
-          <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#A3928B]">
-            <span
+      {/* Breadcrumb Navigation Bar with Explicit Clickable Buttons */}
+      <div className="bg-white border-b border-[#E8E2D9] sticky top-16 z-30 shadow-2xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+          {/* Left: Quick Back Button */}
+          <div className="flex items-center gap-2">
+            <button
               onClick={() => onSelectRoom(design.roomSlug)}
-              className="hover:text-[#664465] cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] hover:bg-[#664465] hover:border-[#664465] hover:text-white transition-all text-xs font-semibold text-[#2C2523] cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to {design.room}</span>
+            </button>
+
+            <button
+              onClick={onNavigateHome}
+              className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-transparent hover:border-[#E8E2D9] hover:bg-[#FAF8F5] text-xs text-[#6B5E59] font-medium transition-colors cursor-pointer"
+            >
+              <Home className="w-3.5 h-3.5" />
+              <span>Home</span>
+            </button>
+          </div>
+
+          {/* Right: Path Navigation Buttons */}
+          <div className="flex items-center gap-1.5 text-xs text-[#8A7973]">
+            <button
+              onClick={() => onSelectRoom(design.roomSlug)}
+              className="px-2.5 py-1 rounded-md hover:bg-[#EFE6EE] hover:text-[#664465] font-semibold transition-colors cursor-pointer"
             >
               {design.room}
-            </span>
-            <span>•</span>
-            <span
+            </button>
+            <ChevronRight className="w-3 h-3 text-[#B8ACA4]" />
+            <button
               onClick={() => onSelectStyle(design.styleSlug)}
-              className="hover:text-[#664465] cursor-pointer"
+              className="px-2.5 py-1 rounded-md hover:bg-[#EFE6EE] hover:text-[#664465] font-semibold transition-colors cursor-pointer"
             >
               {design.style}
+            </button>
+            <ChevronRight className="w-3 h-3 text-[#B8ACA4]" />
+            <span className="px-2.5 py-1 rounded-md bg-[#EFE6EE] text-[#664465] font-bold">
+              {design.code}
             </span>
           </div>
         </div>
@@ -124,7 +143,7 @@ export function WallDetailPage({
                   <button
                     key={idx}
                     onClick={() => setActiveImgIndex(idx)}
-                    className={`relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${
+                    className={`relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
                       activeImgIndex === idx
                         ? "border-[#664465] ring-2 ring-[#664465]/30 scale-102"
                         : "border-[#E8E2D9] opacity-70 hover:opacity-100"
@@ -137,40 +156,11 @@ export function WallDetailPage({
             )}
 
             {/* Architectural Philosophy / Description */}
-            <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-white border border-[#E8E2D9] shadow-sm">
+            <div className="mt-6 p-6 sm:p-8 rounded-2xl bg-white border border-[#E8E2D9] shadow-sm">
               <h3 className="text-xl font-serif text-[#2C2523] mb-3">Design Description</h3>
-              <p className="text-sm sm:text-base text-[#6B5E59] leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-[#6B5E59] leading-relaxed">
                 {design.description}
               </p>
-
-              {/* Materials Used Links */}
-              <div className="pt-6 border-t border-[#F0EAE1]">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#664465] mb-3">
-                  Materials Integrated in This Wall
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {design.materialsUsed.map((mat) => (
-                    <div
-                      key={mat.code}
-                      onClick={() => onSelectMaterial(mat.materialSlug)}
-                      className="group cursor-pointer p-3 rounded-xl bg-[#FAF8F5] border border-[#E8E2D9] hover:border-[#664465] transition-all flex items-center justify-between"
-                    >
-                      <div>
-                        <span className="text-[10px] font-mono text-[#A3928B] uppercase">
-                          {mat.code}
-                        </span>
-                        <div className="text-xs font-semibold text-[#2C2523] group-hover:text-[#664465] transition-colors">
-                          {mat.name}
-                        </div>
-                      </div>
-                      <span className="inline-flex items-center gap-1 text-xs text-[#8A7973] font-medium group-hover:text-[#664465]">
-                        <span>View Spec</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Technical Specifications */}
@@ -208,20 +198,20 @@ export function WallDetailPage({
           {/* Right Column: Pricing, Customizations & Booking Actions */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Main Sticky Card */}
-            <div className="sticky top-24 p-6 sm:p-8 rounded-3xl bg-white border border-[#E8E2D9] shadow-xl">
-              {/* Category Pills */}
+            <div className="sticky top-32 p-6 sm:p-8 rounded-3xl bg-white border border-[#E8E2D9] shadow-xl">
+              {/* Category Navigation Buttons */}
               <div className="flex flex-wrap gap-2 mb-4">
                 <button
                   onClick={() => onSelectRoom(design.roomSlug)}
-                  className="px-3 py-1 rounded-full bg-[#EFE6EE] text-[#664465] text-xs font-semibold hover:bg-[#664465] hover:text-white transition-colors"
+                  className="px-3.5 py-1.5 rounded-full bg-[#EFE6EE] text-[#664465] text-xs font-semibold hover:bg-[#664465] hover:text-white transition-colors cursor-pointer"
                 >
-                  {design.room}
+                  Room: {design.room}
                 </button>
                 <button
                   onClick={() => onSelectStyle(design.styleSlug)}
-                  className="px-3 py-1 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] text-[#6B5E59] text-xs font-semibold hover:border-[#664465] hover:text-[#664465] transition-colors"
+                  className="px-3.5 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] text-[#6B5E59] text-xs font-semibold hover:border-[#664465] hover:text-[#664465] transition-colors cursor-pointer"
                 >
-                  {design.style}
+                  Style: {design.style}
                 </button>
               </div>
 
@@ -269,7 +259,7 @@ export function WallDetailPage({
                           onClick={() => toggleAddon(addon.id)}
                           className={`p-3.5 rounded-xl border cursor-pointer transition-all flex items-start gap-3 ${
                             isSelected
-                              ? "bg-[#EFE6EE]/30 border-[#664465] shadow-sm"
+                              ? "bg-[#EFE6EE]/30 border-[#664465] shadow-xs"
                               : "bg-white border-[#E8E2D9] hover:border-[#664465]/50"
                           }`}
                         >
@@ -304,7 +294,7 @@ export function WallDetailPage({
               <div className="flex flex-col gap-3">
                 <button
                   onClick={() => onOpenConsultation(`Book Wall: ${design.name} (${design.code})`)}
-                  className="w-full py-4 rounded-full bg-[#664465] hover:bg-[#4E304F] text-white font-semibold text-sm tracking-wide shadow-xl shadow-[#664465]/25 transition-all hover:scale-101 flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-full bg-[#664465] hover:bg-[#4E304F] text-white font-semibold text-sm tracking-wide shadow-xl shadow-[#664465]/25 transition-all hover:scale-101 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4 text-[#C59B4E]" />
                   Book This Design
@@ -312,7 +302,7 @@ export function WallDetailPage({
 
                 <button
                   onClick={handleWhatsAppQuote}
-                  className="w-full py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold text-sm tracking-wide shadow-md transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold text-sm tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4" />
                   Get WhatsApp 3D Estimate
@@ -338,9 +328,82 @@ export function WallDetailPage({
           </div>
         </div>
 
+        {/* MATERIALS USED IN THIS WALL - POSITIONED DOWN WITH ACTUAL MATERIAL IMAGES */}
+        <div className="mt-16 sm:mt-24 p-8 sm:p-12 rounded-3xl bg-[#F4EFEA] border border-[#E8E2D9]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#664465] block mb-1">
+                Engineered Craftsmanship
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-serif text-[#2C2523]">
+                Materials Used in {design.name}
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-[#6B5E59] max-w-md">
+              Each material is precision cut off-site to millimeter tolerances and pre-calibrated for rapid dustless assembly.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {design.materialsUsed.map((mat) => {
+              const fullProd = findMaterialProduct(mat.materialSlug);
+              return (
+                <div
+                  key={mat.code}
+                  onClick={() => onSelectMaterial(mat.materialSlug)}
+                  className="group cursor-pointer rounded-2xl overflow-hidden bg-white border border-[#E8E2D9] hover:border-[#664465] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Material Image */}
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#EAE4DC]">
+                      <img
+                        src={fullProd?.image || design.image}
+                        alt={mat.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
+                      />
+                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-mono font-bold text-[#2C2523]">
+                        {mat.code}
+                      </div>
+                      {fullProd?.thickness && (
+                        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#664465] text-white text-[10px] font-semibold">
+                          {fullProd.thickness}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="p-5">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#8A7973] block mb-1">
+                        {fullProd?.category || "Architectural Surface"}
+                      </span>
+                      <h4 className="text-base sm:text-lg font-serif font-semibold text-[#2C2523] group-hover:text-[#664465] transition-colors">
+                        {mat.name}
+                      </h4>
+                      {fullProd?.finish && (
+                        <p className="text-xs text-[#6B5E59] mt-1">
+                          Finish: {fullProd.finish}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="p-5 pt-3 border-t border-[#F0EAE1] flex items-center justify-between bg-[#FAF8F5]/50">
+                    <span className="text-xs font-bold text-[#664465]">
+                      {fullProd?.price || "Turnkey Specification"}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#664465] group-hover:underline">
+                      <span>View Material Spec</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Similar Wall Designs */}
         {similarDesigns.length > 0 && (
-          <div className="mt-20 pt-16 border-t border-[#E8E2D9]">
+          <div className="mt-16 sm:mt-24 pt-12 border-t border-[#E8E2D9]">
             <div className="flex items-end justify-between mb-8">
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-[#664465]">

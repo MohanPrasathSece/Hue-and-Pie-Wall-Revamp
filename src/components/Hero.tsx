@@ -62,7 +62,15 @@ export function Hero({ onOpenConsultation, onExploreDesigns, onViewWallDetail }:
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Left Column: Headline & Value Proposition */}
           <div className="lg:col-span-7">
-            {/* Headline (Elevated Luxury Architectural Headline, Badge Removed as requested) */}
+            {/* Small Badge above headline as requested */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE6EE] border border-[#664465]/15 mb-5 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#664465]" />
+              <span className="text-xs uppercase tracking-[0.16em] font-semibold text-[#664465]">
+                Hue &amp; Pie Wall Revamp Studio
+              </span>
+            </div>
+
+            {/* Headline */}
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-[60px] font-normal text-[#2C2523] leading-[1.12] tracking-tight mb-6">
               Elevate Your Home with{" "}
               <em className="text-[#664465] not-italic font-medium">

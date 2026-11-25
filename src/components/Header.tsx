@@ -27,11 +27,20 @@ export function Header({ onOpenConsultation, activeView, onNavigateHome }: Heade
       setTimeout(() => {
         const el = document.getElementById(sectionId);
         if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+      }, 50);
     } else {
       const el = document.getElementById(sectionId);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  // Check which category is currently active
+  const isItemActive = (id: string) => {
+    if (id === "rooms" && activeView === "room-category") return true;
+    if (id === "styles" && activeView === "style-category") return true;
+    if (id === "designs" && activeView === "wall-detail") return true;
+    if (id === "materials" && (activeView === "material-category" || activeView === "material-detail")) return true;
+    return false;
   };
 
   // Only required category links
@@ -52,28 +61,35 @@ export function Header({ onOpenConsultation, activeView, onNavigateHome }: Heade
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo - EXACT LOGO & FONT FROM USER'S IMAGE */}
+          {/* Brand Logo - Purple Text with Noto Serif Font */}
           <button
             type="button"
             onClick={onNavigateHome}
             className="group cursor-pointer text-left focus:outline-none"
             aria-label="Hue & Pie - Wall Revamp Studio"
           >
-            <BrandLogo variant="badge" />
+            <BrandLogo />
           </button>
 
-          {/* Desktop Navigation Links - ONLY ESSENTIAL CATEGORIES */}
-          <nav className="hidden md:flex items-center gap-8">
-            {menuCategories.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => handleNavClick(item.id)}
-                className="text-sm font-semibold text-[#2C2523] hover:text-[#664465] transition-colors cursor-pointer py-1"
-              >
-                {item.label}
-              </button>
-            ))}
+          {/* Desktop Navigation Links - Highlight Active Category */}
+          <nav className="hidden md:flex items-center gap-2 lg:gap-3">
+            {menuCategories.map((item) => {
+              const active = isItemActive(item.id);
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleNavClick(item.id)}
+                  className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all cursor-pointer ${
+                    active
+                      ? "bg-[#664465] text-white shadow-xs"
+                      : "text-[#2C2523] hover:text-[#664465] hover:bg-[#EFE6EE]/60"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </nav>
 
           {/* Header Action Buttons */}
@@ -108,11 +124,11 @@ export function Header({ onOpenConsultation, activeView, onNavigateHome }: Heade
         </div>
       </header>
 
-      {/* Mobile Drawer Navigation - ONLY REQUIRED CATEGORIES */}
+      {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-[#FAF8F5] flex flex-col p-6 sm:p-8 animate-in fade-in duration-200">
           <div className="flex items-center justify-between pb-6 border-b border-[#E8DFD2]">
-            <BrandLogo variant="badge" />
+            <BrandLogo />
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -127,23 +143,30 @@ export function Header({ onOpenConsultation, activeView, onNavigateHome }: Heade
             Categories
           </div>
 
-          <nav className="flex flex-col gap-3 flex-1">
+          <nav className="flex flex-col gap-2 flex-1">
             {[
               { label: "Explore by Room", id: "rooms" },
               { label: "Explore by Style", id: "styles" },
               { label: "Popular Wall Designs", id: "designs" },
               { label: "Explore Materials", id: "materials" },
-            ].map((link) => (
-              <button
-                key={link.id}
-                type="button"
-                onClick={() => handleNavClick(link.id)}
-                className="text-left font-serif text-2xl text-[#2C2523] hover:text-[#664465] transition-colors flex items-center justify-between py-3 border-b border-[#EFE7DD]"
-              >
-                <span>{link.label}</span>
-                <ArrowUpRight size={18} className="text-[#8C8279]" />
-              </button>
-            ))}
+            ].map((link) => {
+              const active = isItemActive(link.id);
+              return (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => handleNavClick(link.id)}
+                  className={`text-left font-serif text-2xl transition-all flex items-center justify-between p-3 rounded-2xl border-b border-[#EFE7DD] ${
+                    active
+                      ? "bg-[#664465] text-white font-semibold"
+                      : "text-[#2C2523] hover:text-[#664465]"
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  <ArrowUpRight size={18} className={active ? "text-white" : "text-[#8C8279]"} />
+                </button>
+              );
+            })}
           </nav>
 
           <div className="pt-6 border-t border-[#E8DFD2] flex flex-col gap-3">

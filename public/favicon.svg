@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6E486D"/>
+      <stop offset="100%" stop-color="#4E304F"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5C78D"/>
+      <stop offset="50%" stop-color="#C59B4E"/>
+      <stop offset="100%" stop-color="#9C7733"/>
+    </linearGradient>
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#241425" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Premium Deep Plum Rounded Container -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)"/>
+  
+  <!-- Architectural Subtle Gold Framing Ring -->
+  <rect x="1.5" y="1.5" width="61" height="61" rx="14.5" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" stroke-opacity="0.35"/>
+
+  <!-- Monogram Mark: Interlocking Architectural H & P -->
+  <g filter="url(#subtleShadow)">
+    <!-- P Loop (Signature Architectural Gold Pie / Arch) -->
+    <path d="M 34 16 L 40 16 C 46.5 16 51 19.8 51 25.5 C 51 31.2 46.5 35 40 35 L 34 35 Z" 
+          fill="url(#goldGrad)" />
+    <!-- P Inner Negative Space (Cutout for crisp legibility) -->
+    <path d="M 37.5 20.5 L 39.5 20.5 C 43.5 20.5 46.5 22.4 46.5 25.5 C 46.5 28.6 43.5 30.5 39.5 30.5 L 37.5 30.5 Z" 
+          fill="#5D3A5C" />
+
+    <!-- Left Vertical Stem of H (Warm Cream with Serifs) -->
+    <!-- Base column -->
+    <rect x="15" y="18" width="5.5" height="28" fill="#FFFDE8"/>
+    <!-- Top serif -->
+    <path d="M 12.5 18 L 23 18 L 23 20.5 L 12.5 20.5 Z" fill="#FFFDE8"/>
+    <!-- Bottom serif -->
+    <path d="M 12.5 43.5 L 23 43.5 L 23 46 L 12.5 46 Z" fill="#FFFDE8"/>
+
+    <!-- Central Horizontal Crossbar of H -->
+    <rect x="19" y="30.5" width="16" height="4.5" fill="#FFFDE8"/>
+
+    <!-- Right Vertical Stem of H & P (Warm Cream with Serifs) -->
+    <!-- Base column -->
+    <rect x="32" y="18" width="5.5" height="28" fill="#FFFDE8"/>
+    <!-- Top serif -->
+    <path d="M 29.5 18 L 35 18 L 35 20.5 L 29.5 20.5 Z" fill="#FFFDE8"/>
+    <!-- Bottom serif -->
+    <path d="M 29.5 43.5 L 40 43.5 L 40 46 L 29.5 46 Z" fill="#FFFDE8"/>
+
+    <!-- Delicate Gold Accent Diamond / Sparkle -->
+    <circle cx="26" cy="22" r="1.5" fill="url(#goldGrad)"/>
+  </g>
+</svg>

@@ -24,8 +24,12 @@
   }
 
   h1, h2, h3, .font-serif {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Noto Serif', 'Playfair Display', Georgia, serif;
   }
+}
+
+.font-brand {
+  font-family: 'Noto Serif', Georgia, serif;
 }
 
 /* Custom Utilities for the White, Beige & Light Plum Luxury Aesthetic */

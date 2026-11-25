@@ -87,7 +87,7 @@ export function MaterialCategoryPage({
                   key={feat}
                   className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium text-[#FAF8F5] border border-white/10"
                 >
-                  ✓ {feat}
+                  {feat}
                 </span>
               ))}
             </div>
@@ -229,8 +229,9 @@ export function MaterialCategoryPage({
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-[#F0EAE1]">
                     <span className="text-xs font-bold text-[#2C2523]">{design.price}</span>
-                    <span className="text-xs text-[#664465] font-semibold group-hover:underline">
-                      View Design →
+                    <span className="inline-flex items-center gap-1 text-xs text-[#664465] font-semibold group-hover:underline">
+                      <span>View Design</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
                 </div>

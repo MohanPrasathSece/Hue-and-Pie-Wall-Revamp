@@ -226,8 +226,9 @@ export function RoomCategoryPage({
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-[#F0EAE1]">
                     <span className="text-xs font-bold text-[#664465]">{mat.price}</span>
-                    <span className="text-xs text-[#8A7973] font-medium group-hover:text-[#2C2523]">
-                      View Material →
+                    <span className="inline-flex items-center gap-1 text-xs text-[#8A7973] font-medium group-hover:text-[#2C2523]">
+                      <span>View Material</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
                 </div>

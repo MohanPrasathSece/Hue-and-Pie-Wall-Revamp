@@ -80,7 +80,7 @@ export function StyleCategoryPage({
                   key={feat}
                   className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium text-[#FAF8F5] border border-white/10"
                 >
-                  ✦ {feat}
+                  {feat}
                 </span>
               ))}
             </div>

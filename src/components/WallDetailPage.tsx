@@ -163,8 +163,9 @@ export function WallDetailPage({
                           {mat.name}
                         </div>
                       </div>
-                      <span className="text-xs text-[#8A7973] font-medium group-hover:text-[#664465]">
-                        View Spec →
+                      <span className="inline-flex items-center gap-1 text-xs text-[#8A7973] font-medium group-hover:text-[#664465]">
+                        <span>View Spec</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </span>
                     </div>
                   ))}
@@ -377,8 +378,9 @@ export function WallDetailPage({
                     </div>
                     <div className="pt-3 mt-3 border-t border-[#F0EAE1] flex items-center justify-between">
                       <span className="text-sm font-serif font-bold text-[#2C2523]">{sim.price}</span>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#664465]">
-                        View Design →
+                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#664465]">
+                        <span>View Design</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </span>
                     </div>
                   </div>

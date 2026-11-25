@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MoveHorizontal } from "lucide-react";
 import wallHeroImg from "@/assets/wall-hero.jpg";
 import livingRoomImg from "@/assets/hue-pie-living-room.jpg";
 
@@ -52,8 +53,8 @@ export function BeforeAfterSection() {
             className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize flex items-center justify-center shadow-lg"
             style={{ left: `${sliderPos}%` }}
           >
-            <div className="w-9 h-9 rounded-full bg-white text-[#2C2523] shadow-xl flex items-center justify-center text-xs font-bold border border-[#E8DFD2]">
-              ↔
+            <div className="w-9 h-9 rounded-full bg-white text-[#2C2523] shadow-xl flex items-center justify-center border border-[#E8DFD2]">
+              <MoveHorizontal className="w-4 h-4 text-[#2C2523]" />
             </div>
           </div>
 

@@ -44,12 +44,12 @@ export function RoomBrowser({ onSelectRoom }: RoomBrowserProps) {
               </div>
 
               {/* Card Footer: Room Name Only + Subtle Arrow */}
-              <div className="p-5 sm:p-6 flex items-center justify-between bg-white">
-                <h3 className="text-xl sm:text-2xl font-serif text-[#2C2523] group-hover:text-[#664465] transition-colors">
+              <div className="p-4 sm:p-6 flex items-center justify-between bg-white min-h-[58px] sm:min-h-[72px]">
+                <h3 className="text-lg sm:text-2xl font-serif text-[#2C2523] group-hover:text-[#664465] transition-colors leading-snug">
                   {room.name}
                 </h3>
-                <div className="w-10 h-10 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] group-hover:bg-[#664465] group-hover:border-[#664465] flex items-center justify-center transition-all duration-300">
-                  <ArrowRight className="w-4 h-4 text-[#6B5E59] group-hover:text-white transition-colors" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] group-hover:bg-[#664465] group-hover:border-[#664465] flex items-center justify-center transition-all duration-300 shrink-0 ml-2">
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#6B5E59] group-hover:text-white transition-colors" />
                 </div>
               </div>
             </div>

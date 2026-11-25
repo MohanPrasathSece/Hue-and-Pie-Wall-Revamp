@@ -44,12 +44,12 @@ export function MaterialShowroom({ onSelectCategory }: MaterialShowroomProps) {
               </div>
 
               {/* Material Category Name Only */}
-              <div className="p-4 sm:p-5 flex items-center justify-between bg-white">
-                <h3 className="text-base sm:text-lg lg:text-xl font-serif text-[#2C2523] group-hover:text-[#664465] transition-colors truncate">
+              <div className="p-3 sm:p-5 flex items-center justify-between bg-white min-h-[58px] sm:min-h-[72px]">
+                <h3 className="text-sm sm:text-lg lg:text-xl font-serif text-[#2C2523] group-hover:text-[#664465] transition-colors leading-snug line-clamp-2">
                   {category.name}
                 </h3>
-                <div className="w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] group-hover:bg-[#664465] group-hover:border-[#664465] flex items-center justify-center transition-all duration-300 shrink-0 ml-2">
-                  <ArrowRight className="w-3.5 h-3.5 text-[#6B5E59] group-hover:text-white transition-colors" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] group-hover:bg-[#664465] group-hover:border-[#664465] flex items-center justify-center transition-all duration-300 shrink-0 ml-1.5 sm:ml-2">
+                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#6B5E59] group-hover:text-white transition-colors" />
                 </div>
               </div>
             </div>

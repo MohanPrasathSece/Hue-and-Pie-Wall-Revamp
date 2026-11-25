@@ -43,18 +43,18 @@ export function MaterialCategoryPage({
     <div className="min-h-screen bg-[#FAF8F5]">
       {/* Breadcrumb Bar with Buttons */}
       <div className="bg-white border-b border-[#E8E2D9] sticky top-16 z-30 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={onNavigateHome}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] hover:bg-[#664465] hover:border-[#664465] hover:text-white transition-all text-xs font-semibold text-[#2C2523] cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E8E2D9] hover:bg-[#664465] hover:border-[#664465] hover:text-white transition-all text-xs font-semibold text-[#2C2523] cursor-pointer shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to All Materials</span>
             </button>
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs text-[#8A7973]">
+          <div className="flex items-center gap-1.5 text-xs text-[#8A7973] shrink-0">
             <button
               onClick={onNavigateHome}
               className="px-2.5 py-1 rounded-md hover:bg-[#EFE6EE] hover:text-[#664465] font-semibold transition-colors cursor-pointer"
@@ -80,16 +80,16 @@ export function MaterialCategoryPage({
           <div className="absolute inset-0 bg-gradient-to-t from-[#1A121A] via-[#1A121A]/70 to-transparent" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-20 lg:py-24">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE6EE]/15 border border-[#EFE6EE]/30 text-[#EFE6EE] text-xs font-semibold tracking-wider uppercase mb-4 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#EFE6EE]/15 border border-[#EFE6EE]/30 text-[#EFE6EE] text-[11px] sm:text-xs font-semibold tracking-wider uppercase mb-3 sm:mb-4 backdrop-blur-sm">
               <Layers className="w-3.5 h-3.5 text-[#C59B4E]" />
               {category.unitPriceRange}
             </div>
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif text-[#FAF8F5] tracking-tight mb-4">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif text-[#FAF8F5] tracking-tight mb-3 sm:mb-4 leading-tight">
               {category.heading}
             </h1>
-            <p className="text-base sm:text-lg text-[#E4DCD3] leading-relaxed mb-6">
+            <p className="text-sm sm:text-base lg:text-lg text-[#E4DCD3] leading-relaxed mb-5 sm:mb-6">
               {category.description}
             </p>
 
@@ -97,7 +97,7 @@ export function MaterialCategoryPage({
               {category.features.map((feat) => (
                 <span
                   key={feat}
-                  className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium text-[#FAF8F5] border border-white/10"
+                  className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] sm:text-xs font-medium text-[#FAF8F5] border border-white/10"
                 >
                   {feat}
                 </span>
@@ -108,19 +108,19 @@ export function MaterialCategoryPage({
       </div>
 
       {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
         {/* Finish Filters */}
         {finishOptions.length > 2 && (
-          <div className="mb-10">
+          <div className="mb-8 sm:mb-10">
             <div className="text-xs font-bold uppercase tracking-widest text-[#6B5E59] mb-3">
               Filter by Finish
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
               {finishOptions.map((finish) => (
                 <button
                   key={finish}
                   onClick={() => setSelectedFinishFilter(finish)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all ${
+                  className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 whitespace-nowrap ${
                     selectedFinishFilter === finish
                       ? "bg-[#664465] text-white shadow-md shadow-[#664465]/20"
                       : "bg-white text-[#6B5E59] border border-[#E8E2D9] hover:border-[#664465] hover:text-[#664465]"
@@ -202,46 +202,46 @@ export function MaterialCategoryPage({
 
         {/* Wall Designs Using These Materials */}
         {relatedDesigns.length > 0 && (
-          <div className="p-8 sm:p-10 rounded-3xl bg-[#F4EFEA] border border-[#E8E2D9] mb-16">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div className="p-5 sm:p-10 rounded-2xl sm:rounded-3xl bg-[#F4EFEA] border border-[#E8E2D9] mb-12 sm:mb-16">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3 sm:gap-4">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#664465]">
+                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-[#664465]">
                   Turnkey Installations
                 </span>
-                <h3 className="text-2xl font-serif text-[#2C2523] mt-1">
+                <h3 className="text-xl sm:text-2xl font-serif text-[#2C2523] mt-1">
                   Wall Designs Using {category.name}
                 </h3>
               </div>
-              <p className="text-sm text-[#6B5E59] max-w-md">
+              <p className="text-xs sm:text-sm text-[#6B5E59] max-w-md">
                 See these materials installed in complete room collections with turnkey pricing.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {relatedDesigns.map((design) => (
                 <div
                   key={design.slug}
                   onClick={() => onSelectDesign(design.slug)}
-                  className="group cursor-pointer rounded-xl overflow-hidden bg-white border border-[#E8E2D9] hover:shadow-lg transition-all p-4 flex flex-col justify-between"
+                  className="group cursor-pointer rounded-xl overflow-hidden bg-white border border-[#E8E2D9] hover:shadow-lg transition-all p-3.5 sm:p-4 flex flex-col justify-between"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <img
                       src={design.image}
                       alt={design.name}
-                      className="w-16 h-16 rounded-lg object-cover"
+                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover"
                     />
                     <div>
                       <span className="text-[10px] font-mono text-[#A3928B] uppercase">
                         {design.code} • {design.room}
                       </span>
-                      <h4 className="text-sm font-semibold text-[#2C2523] group-hover:text-[#664465] transition-colors">
+                      <h4 className="text-xs sm:text-sm font-semibold text-[#2C2523] group-hover:text-[#664465] transition-colors leading-snug">
                         {design.name}
                       </h4>
                     </div>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-[#F0EAE1]">
                     <span className="text-xs font-bold text-[#2C2523]">{design.price}</span>
-                    <span className="inline-flex items-center gap-1 text-xs text-[#664465] font-semibold group-hover:underline">
+                    <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs text-[#664465] font-semibold group-hover:underline">
                       <span>View Design</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
@@ -253,18 +253,18 @@ export function MaterialCategoryPage({
         )}
 
         {/* Enquire About Material Banner */}
-        <div className="rounded-3xl bg-[#2A162B] text-white p-8 sm:p-12 text-center relative overflow-hidden">
+        <div className="rounded-2xl sm:rounded-3xl bg-[#2A162B] text-white p-6 sm:p-12 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-[#664465]/40 via-transparent to-[#C59B4E]/20" />
           <div className="relative max-w-2xl mx-auto">
-            <h3 className="text-2xl sm:text-4xl font-serif mb-4">
+            <h3 className="text-xl sm:text-3xl lg:text-4xl font-serif mb-3 sm:mb-4">
               Need Physical Samples of {category.name}?
             </h3>
-            <p className="text-sm sm:text-base text-[#D3C3D0] mb-8">
+            <p className="text-xs sm:text-base text-[#D3C3D0] mb-6 sm:mb-8">
               We courier curated material sample boxes directly to your home with cut timber flutes, brushed brass strips, and microcement swatches.
             </p>
             <button
               onClick={() => onOpenConsultation(`Material Sample Request (${category.name})`)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#C59B4E] hover:bg-[#B38A3F] text-white text-sm font-semibold tracking-wide shadow-xl transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#C59B4E] hover:bg-[#B38A3F] text-white text-xs sm:text-sm font-semibold tracking-wide shadow-xl transition-all hover:scale-105 cursor-pointer"
             >
               Enquire About {category.name}
               <ArrowRight className="w-4 h-4" />

@@ -47,13 +47,13 @@ export function DesignCatalog({ onSelectDesign }: DesignCatalogProps) {
               </div>
 
               {/* Design Name + View Design Link */}
-              <div className="p-5 sm:p-6 flex items-center justify-between bg-white">
-                <h3 className="text-lg sm:text-xl font-serif text-[#2C2523] group-hover:text-[#664465] transition-colors">
+              <div className="p-4 sm:p-6 flex items-center justify-between bg-white min-h-[58px] sm:min-h-[72px]">
+                <h3 className="text-base sm:text-xl font-serif text-[#2C2523] group-hover:text-[#664465] transition-colors leading-snug">
                   {design.name}
                 </h3>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#664465] group-hover:text-[#4A2D49] transition-colors shrink-0 ml-3">
+                <span className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#664465] group-hover:text-[#4A2D49] transition-colors shrink-0 ml-2">
                   View Design
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
               </div>
             </div>
